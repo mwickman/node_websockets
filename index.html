@@ -1,9 +1,17 @@
 <html>
+<style>
+    .console {
+        border: 1px solid black;
+        background: lavenderblush;
+        min-height: 200px;
+        max-width: 400px;
+    }
+    .console p {
+        margin: 2px;
+    }
+</style>
 <body>
-hello world
-    <div class="console" id="console">
-
-    </div>
+    <div class="console" id="console"></div>
         <input id="chatinput" type="text" name="message">
         <input id="submit" type="submit" value="submit">
 <!--<input type="text" onsubmit="submitForm(this)">-->
@@ -14,7 +22,7 @@ hello world
 <script src="/socket.io/socket.io.js"></script>
 <script>
     //var socket = io.connect('http://localhost');
-    var chat = io.connect('http://localhost/chat');
+    var chat = io.connect('http://192.168.2.168:8000/chat');
 
     chat.on('connect', function(){
         console.log('connected to chat')
@@ -27,17 +35,6 @@ hello world
         consoleAdd(data.message);
     })
 
-//    socket.on('news', function (data) {
-//        console.log(data);
-//        socket.emit('my other event', { my: 'data' });
-//    });
-//
-//    socket.on('connect', function () { // TIP: you can avoid listening on `connect` and listen on events directly too!
-//        socket.emit('ferret', 'tobi', function (data) {
-//            console.log(data); // data will be 'woot'
-//            consoleAdd(data);
-//        });
-//    });
 
     $('#submit').bind('click', function(){
         var elm = $('#chatinput');

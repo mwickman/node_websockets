@@ -1,6 +1,16 @@
 {
-  "Dependencies": {
-    "express": "*",
-    "socket.io": "*"
-  }
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "node_socket",
+  "version": "0.0.0",
+  "description": "Simple chat client and hopefully game",
+  "main": "server.js",
+  "dependencies": {
+    "express": "~3.4.6",
+    "socket.io": "~0.9.16"
+  },
+  "devDependencies": {},
+  "author": "Matt Wickman",
+  "license": "BSD"
 }
