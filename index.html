@@ -12,8 +12,10 @@
 </style>
 <body>
     <div class="console" id="console"></div>
-    <input id="chatinput" type="text" name="message">
-    <input id="submit" type="submit" value="submit">
+    <form>
+        <input id="chatinput" type="text" name="message">
+        <input id="submit" type="submit" value="submit">
+    </form>
     <div>
         <a href="https://github.com/mwickman/node_websockets">Git Repository</a>
     </div>
@@ -53,4 +55,7 @@
     function consoleAdd(data) {
         $('.console').append('<p>' + data + '</p>');
     }
+    $("form").on("submit", function (e) {
+        e.preventDefault();
+    });
 </script>
