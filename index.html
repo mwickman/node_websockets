@@ -1,0 +1,57 @@
+<html>
+<body>
+hello world
+    <div class="console" id="console">
+
+    </div>
+        <input id="chatinput" type="text" name="message">
+        <input id="submit" type="submit" value="submit">
+<!--<input type="text" onsubmit="submitForm(this)">-->
+
+</body>
+</html>
+<script src="jquery-2.0.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    //var socket = io.connect('http://localhost');
+    var chat = io.connect('http://localhost/chat');
+
+    chat.on('connect', function(){
+        console.log('connected to chat')
+        var msg = {myobj: 'hello world'}
+        chat.send('msg', msg);
+    })
+
+    chat.on('msg', function(data) {
+        console.log('got msg from chat!', data);
+        consoleAdd(data.message);
+    })
+
+//    socket.on('news', function (data) {
+//        console.log(data);
+//        socket.emit('my other event', { my: 'data' });
+//    });
+//
+//    socket.on('connect', function () { // TIP: you can avoid listening on `connect` and listen on events directly too!
+//        socket.emit('ferret', 'tobi', function (data) {
+//            console.log(data); // data will be 'woot'
+//            consoleAdd(data);
+//        });
+//    });
+
+    $('#submit').bind('click', function(){
+        var elm = $('#chatinput');
+        var msg = { message: elm.val() };
+        console.log('submitted msg: ', msg);
+        chat.emit('msg', msg);
+        elm.val('');
+    })
+
+    function submitForm(data) {
+        console.log('form submitted with', data);
+    }
+
+    function consoleAdd(data) {
+        $('.console').append('<p>' + data + '</p>');
+    }
+</script>
