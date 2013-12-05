@@ -1,11 +1,12 @@
 "use strict";
+var port = process.env.PORT || 8000
 var io = require('socket.io');
 var express = require('express')
 var app = express()
     , server = require('http').createServer(app)
     , io = require('socket.io').listen(server, {'log level': 1});
 
-server.listen(8000);
+server.listen(port);
 
 app.configure(function () {
   app.use(express.static(__dirname + '/lib'));
