@@ -41,6 +41,7 @@
     })
 
     chat.on('log', function(log){
+        $('.console').empty();
         log.forEach(function(value, index) {
             consoleAdd(value);
         });
