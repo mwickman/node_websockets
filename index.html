@@ -5,6 +5,8 @@
         background: lavenderblush;
         min-height: 200px;
         max-width: 400px;
+        max-height: 400px;
+        overflow-y: scroll;
     }
     .console p {
         margin: 2px;
@@ -30,30 +32,32 @@
 
     chat.on('connect', function(){
         console.log('connected to chat')
-        var msg = {myobj: 'hello world'}
-        chat.send('msg', msg);
+
     })
 
     chat.on('msg', function(data) {
         console.log('got msg from chat!', data);
-        consoleAdd(data.message);
+        consoleAdd(data);
     })
 
+    chat.on('log', function(log){
+        log.forEach(function(value, index) {
+            consoleAdd(value);
+        });
+    })
 
     $('#submit').bind('click', function(){
         var elm = $('#chatinput');
-        var msg = { message: elm.val() };
+        var msg = elm.val();
         console.log('submitted msg: ', msg);
         chat.emit('msg', msg);
         elm.val('');
     })
 
-    function submitForm(data) {
-        console.log('form submitted with', data);
-    }
-
-    function consoleAdd(data) {
-        $('.console').append('<p>' + data + '</p>');
+    function consoleAdd(msg) {
+        var elm = $('.console')
+        elm.append('<p>' + msg.time + ": <strong>" + msg.text + '</strong></p>');
+        elm.scrollTop(100000);
     }
     $("form").on("submit", function (e) {
         e.preventDefault();
